@@ -9,11 +9,13 @@
             <directory>tests/Unit</directory>
             <directory>Modules/Product/tests/Unit</directory>
             <directory>Modules/Auth/tests/Unit</directory>
+            <directory>Modules/Order/tests/Unit</directory>
         </testsuite>
         <testsuite name="Feature">
             <directory>tests/Feature</directory>
             <directory>Modules/Product/tests/Feature</directory>
             <directory>Modules/Auth/tests/Feature</directory>
+            <directory>Modules/Order/tests/Feature</directory>
         </testsuite>
     </testsuites>
     <source>

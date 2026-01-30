@@ -5,8 +5,8 @@ namespace Modules\Order\Services;
 use App\ErrorResponseEnum;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Modules\Order\Enums\OrderStatusEnum;
-use Modules\Order\Http\Requests\StoreOrderRequest;
 use Modules\Order\Http\Requests\UpdateOrderRequest;
+use Modules\Order\Http\Requests\StoreOrderRequest;
 use Modules\Order\Interfaces\OrderItemInterface;
 use Modules\Order\Interfaces\OrderInterface;
 use Modules\Order\Models\Order;
@@ -21,7 +21,7 @@ class OrderService
         protected ProductInterface $productRepository
     ) {}
 
-    public function getAll(int $perPage = 15): LengthAwarePaginator
+    public function getAll(int $perPage): LengthAwarePaginator
     {
         return $this->orderRepository->getAll($perPage);
     }
@@ -88,10 +88,14 @@ class OrderService
     {
         $order = $this->orderRepository->findById($id);
 
-        if (!$order) {
+        if (! $order) {
             return ErrorResponseEnum::NOT_FOUND;
         }
-        if ($order->status !== OrderStatusEnum::PENDING->value) {
+
+        if ($order->user_id !== auth()->id()) {
+            return ErrorResponseEnum::UNAUTHORIZED;
+        }
+        if ($order->status !== OrderStatusEnum::PENDING) {
             return ErrorResponseEnum::NOT_ACCEPTABLE;
         }
 
@@ -126,7 +130,11 @@ class OrderService
         if (! $order) {
             return ErrorResponseEnum::NOT_FOUND;
         }
-        if ($order->status !== OrderStatusEnum::PENDING->value) {
+
+        if ($order->user_id !== auth()->id()) {
+            return ErrorResponseEnum::UNAUTHORIZED;
+        }
+        if ($order->status !== OrderStatusEnum::PENDING) {
             return ErrorResponseEnum::NOT_ACCEPTABLE;
         }
 
@@ -141,6 +149,10 @@ class OrderService
             return ErrorResponseEnum::NOT_FOUND;
         }
 
+        if ($order->user_id !== auth()->id()) {
+            return ErrorResponseEnum::UNAUTHORIZED;
+        }
+
         return $this->orderRepository->setStatus($order, OrderStatusEnum::CANCELLED);
     }
 
@@ -150,6 +162,10 @@ class OrderService
 
         if (! $order) {
             return ErrorResponseEnum::NOT_FOUND;
+        }
+
+        if ($order->user_id !== auth()->id()) {
+            return ErrorResponseEnum::UNAUTHORIZED;
         }
 
         $this->orderRepository->delete($order);
