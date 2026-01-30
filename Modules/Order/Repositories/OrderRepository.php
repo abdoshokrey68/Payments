@@ -53,4 +53,11 @@ class OrderRepository implements OrderInterface
 
         return $order->fresh('items.product');
     }
+
+    public function getOrderByUserId(int $userId, int $order_id): ?Order
+    {
+        return $this->model->newQuery()
+            ->where('user_id', $userId)
+            ->find($order_id);
+    }
 }

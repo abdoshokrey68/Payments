@@ -19,4 +19,6 @@ interface OrderInterface
     public function delete(Order $order): bool;
 
     public function setStatus(Order $order, OrderStatusEnum $status): Order;
+
+    public function getOrderByUserId(int $userId, int $order_id): ?Order;
 }
