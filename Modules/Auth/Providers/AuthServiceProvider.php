@@ -38,11 +38,6 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->app->register(EventServiceProvider::class);
         $this->app->register(RouteServiceProvider::class);
-
-        $this->app->bind(
-            \Modules\Auth\Interfaces\AuthInterface::class,
-            \Modules\Auth\Repositories\AuthRepository::class,
-        );
     }
 
     /**
