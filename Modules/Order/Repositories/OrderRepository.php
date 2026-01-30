@@ -16,7 +16,7 @@ class OrderRepository implements OrderInterface
     public function getAll(int $perPage = 15): LengthAwarePaginator
     {
         return $this->model->newQuery()
-            ->with('items.product')
+            ->with('items.product', 'payment')
             ->latest()
             ->paginate($perPage);
     }
@@ -24,7 +24,7 @@ class OrderRepository implements OrderInterface
     public function findById(int $id): ?Order
     {
         return $this->model->newQuery()
-            ->with('items.product')
+            ->with('items.product', 'payment')
             ->find($id);
     }
 
@@ -37,7 +37,7 @@ class OrderRepository implements OrderInterface
     {
         $order->update($data);
 
-        return $order->fresh('items.product');
+        return $order->fresh('items.product', 'payment');
     }
 
     public function delete(Order $order): bool
@@ -51,7 +51,7 @@ class OrderRepository implements OrderInterface
     {
         $order->update(['status' => $status]);
 
-        return $order->fresh('items.product');
+        return $order->fresh('items.product', 'payment');
     }
 
     public function getOrderByUserId(int $userId, int $order_id): ?Order
