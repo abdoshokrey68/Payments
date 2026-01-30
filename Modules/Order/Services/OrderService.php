@@ -93,7 +93,7 @@ class OrderService
         if (!$order) {
             return ErrorResponseEnum::NOT_FOUND;
         }
-        if ($order->status !== OrderStatusEnum::PENDING->value) {
+        if ($order->status !== OrderStatusEnum::PENDING) {
             return ErrorResponseEnum::NOT_ACCEPTABLE;
         }
 
@@ -128,7 +128,7 @@ class OrderService
         if (! $order) {
             return ErrorResponseEnum::NOT_FOUND;
         }
-        if ($order->status !== OrderStatusEnum::PENDING->value) {
+        if ($order->status !== OrderStatusEnum::PENDING) {
             return ErrorResponseEnum::NOT_ACCEPTABLE;
         }
 
