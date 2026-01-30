@@ -1,0 +1,1639 @@
+{
+  "info": {
+    "_postman_id": "20f338ed-629f-48dc-affc-0ddb07557887",
+    "name": "Payment Task API",
+    "description": "API collection",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "14567016",
+    "_collection_link": "https://go.postman.co/collection/14567016-20f338ed-629f-48dc-affc-0ddb07557887?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Login",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"user@test.com\",\n    \"password\": \"12345678\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/login",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "login"
+              ]
+            },
+            "description": "Authenticate user and get token."
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"email\": \"user@test.com\",\n    \"password\": \"12345678\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/auth/login",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "auth",
+                    "login"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "Text",
+              "header": [],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Login successful\",\n    \"data\": {\n        \"user\": {\n            \"id\": 1,\n            \"name\": \"Test User\",\n            \"email\": \"user@test.com\"\n        },\n        \"token\": \"1|abc123xyz...\"\n    }\n}"
+            },
+            {
+              "name": "Error - Invalid Credentials",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"email\": \"user@test.com\",\n    \"password\": \"1111111111\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/auth/login",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "auth",
+                    "login"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "Text",
+              "header": [],
+              "cookie": [],
+              "body": "{\n    \"success\": false,\n    \"message\": \"Invalid credentials\",\n    \"error_code\": \"INVALID_CREDENTIALS\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Register",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Test User\",\n    \"email\": \"user@test.com\",\n    \"password\": \"12345678\",\n    \"password_confirmation\": \"12345678\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/register",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "register"
+              ]
+            },
+            "description": "Register a new user."
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\": \"Test User\",\n    \"email\": \"user@test.com\",\n    \"password\": \"12345678\",\n    \"password_confirmation\": \"12345678\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/auth/register",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "auth",
+                    "register"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "Text",
+              "header": [],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Registration successful\",\n    \"data\": {\n        \"id\": 2,\n        \"name\": \"Test User\",\n        \"email\": \"user@example.com\"\n    }\n}"
+            },
+            {
+              "name": "Error - Validation",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\": \"Test User\",\n    \"email\": \"user@test.com\",\n    \"password\": \"12345678\",\n    \"password_confirmation\": \"12345678\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/auth/register",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "auth",
+                    "register"
+                  ]
+                }
+              },
+              "status": "Unprocessable Entity",
+              "code": 422,
+              "_postman_previewlanguage": "Text",
+              "header": [],
+              "cookie": [],
+              "body": "{\n    \"message\": \"The email has already been taken.\",\n    \"errors\": {\n        \"email\": [\"The email has already been taken.\"]\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/auth/logout",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "logout"
+              ]
+            },
+            "description": "Logout and revoke current token. Requires Bearer token."
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/api/auth/logout",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "auth",
+                    "logout"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "Text",
+              "header": [],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Logout successful\",\n    \"data\": null\n}"
+            },
+            {
+              "name": "Error - Unauthenticated",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/api/auth/logout",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "auth",
+                    "logout"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "Text",
+              "header": [],
+              "cookie": [],
+              "body": "{\n    \"success\": false,\n    \"message\": \"Unauthenticated.\",\n    \"error_code\": \"UNAUTHENTICATED\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Products",
+      "item": [
+        {
+          "name": "List Products",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/products?per_page=15",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "products"
+              ],
+              "query": [
+                {
+                  "key": "per_page",
+                  "value": "15",
+                  "description": "Items per page (default: 15)"
+                }
+              ]
+            },
+            "description": "Get paginated list of products."
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/api/products?per_page=15",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "products"
+                  ],
+                  "query": [
+                    {
+                      "key": "per_page",
+                      "value": "15"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "Text",
+              "header": [],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Products retrieved successfully\",\n    \"data\": {\n        \"data\": [\n            {\n                \"id\": 1,\n                \"name\": \"Product 0\",\n                \"price\": 150.5,\n                \"created_at\": \"2026-01-29T18:00:00.000000Z\",\n                \"updated_at\": \"2026-01-29T18:00:00.000000Z\"\n            }\n        ],\n        \"meta\": {\n            \"current_page\": 1,\n            \"last_page\": 1,\n            \"per_page\": 15,\n            \"total\": 10\n        },\n        \"links\": {}\n    }\n}"
+            },
+            {
+              "name": "Error - Unauthenticated",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/api/products",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "products"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "Text",
+              "header": [],
+              "cookie": [],
+              "body": "{\n    \"success\": false,\n    \"message\": \"Unauthenticated.\",\n    \"error_code\": \"UNAUTHENTICATED\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get Product by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/products/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "products",
+                "1"
+              ]
+            },
+            "description": "Get a single product by ID."
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/api/products/1",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "products",
+                    "1"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "Text",
+              "header": [],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Product retrieved successfully\",\n    \"data\": {\n        \"id\": 1,\n        \"name\": \"Product 0\",\n        \"price\": 150.5,\n        \"created_at\": \"2026-01-29T18:00:00.000000Z\",\n        \"updated_at\": \"2026-01-29T18:00:00.000000Z\"\n    }\n}"
+            },
+            {
+              "name": "Error - Not Found",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/api/products/999",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "products",
+                    "999"
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "Text",
+              "header": [],
+              "cookie": [],
+              "body": "{\n    \"success\": false,\n    \"message\": \"Resource not found.\",\n    \"error_code\": \"NOT_FOUND\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Orders",
+      "item": [
+        {
+          "name": "List Orders",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/orders?per_page=15",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "orders"
+              ],
+              "query": [
+                {
+                  "key": "per_page",
+                  "value": "15",
+                  "description": "Items per page (default: 15)"
+                }
+              ]
+            },
+            "description": "Get paginated list of orders for the authenticated user."
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/api/orders?per_page=15",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "orders"
+                  ],
+                  "query": [
+                    {
+                      "key": "per_page",
+                      "value": "15"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "Text",
+              "header": [],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Orders retrieved successfully\",\n    \"data\": {\n        \"data\": [\n            {\n                \"id\": 1,\n                \"user_id\": 1,\n                \"status\": \"pending\",\n                \"total_amount\": 450.75,\n                \"items\": [],\n                \"created_at\": \"2026-01-29T19:00:00.000000Z\",\n                \"updated_at\": \"2026-01-29T19:00:00.000000Z\"\n            }\n        ],\n        \"meta\": {\n            \"current_page\": 1,\n            \"last_page\": 1,\n            \"per_page\": 15,\n            \"total\": 5\n        },\n        \"links\": {}\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get Order by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/orders/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "orders",
+                "1"
+              ]
+            },
+            "description": "Get a single order by ID."
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/api/orders/1",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "orders",
+                    "1"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "Text",
+              "header": [],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Order retrieved successfully\",\n    \"data\": {\n        \"id\": 1,\n        \"user_id\": 1,\n        \"status\": \"pending\",\n        \"total_amount\": 450.75,\n        \"items\": [\n            {\n                \"id\": 1,\n                \"order_id\": 1,\n                \"product_id\": 1,\n                \"quantity\": 2,\n                \"price\": 150.5,\n                \"product\": {\n                    \"id\": 1,\n                    \"name\": \"Product 0\",\n                    \"price\": 150.5\n                }\n            }\n        ],\n        \"created_at\": \"2026-01-29T19:00:00.000000Z\",\n        \"updated_at\": \"2026-01-29T19:00:00.000000Z\"\n    }\n}"
+            },
+            {
+              "name": "Error - Not Found",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/api/orders/999",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "orders",
+                    "999"
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "Text",
+              "header": [],
+              "cookie": [],
+              "body": "{\n    \"success\": false,\n    \"message\": \"Resource not found.\",\n    \"error_code\": \"NOT_FOUND\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Create Order",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"items\": [\n        {\n            \"product_id\": 1,\n            \"quantity\": 2\n        },\n        {\n            \"product_id\": 2,\n            \"quantity\": 1\n        }\n    ]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/orders",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "orders"
+              ]
+            },
+            "description": "Create a new order. Total and item prices are calculated from products. user_id is set from auth."
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"items\": [\n        {\n            \"product_id\": 1,\n            \"quantity\": 2\n        },\n        {\n            \"product_id\": 2,\n            \"quantity\": 1\n        }\n    ]\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/orders",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "orders"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "Text",
+              "header": [],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Order created successfully\",\n    \"data\": {\n        \"id\": 1,\n        \"user_id\": 1,\n        \"status\": \"pending\",\n        \"total_amount\": 451.0,\n        \"items\": [\n            {\n                \"id\": 1,\n                \"order_id\": 1,\n                \"product_id\": 1,\n                \"quantity\": 2,\n                \"price\": 150.5\n            }\n        ],\n        \"created_at\": \"2026-01-29T19:00:00.000000Z\",\n        \"updated_at\": \"2026-01-29T19:00:00.000000Z\"\n    }\n}"
+            },
+            {
+              "name": "Error - Invalid Parameter (invalid product)",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"items\": [\n        {\n            \"product_id\": 99999,\n            \"quantity\": 1\n        }\n    ]\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/orders",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "orders"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "Text",
+              "header": [],
+              "cookie": [],
+              "body": "{\n    \"success\": false,\n    \"message\": \"Invalid parameter.\",\n    \"error_code\": \"INVALID_PARAMETER\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Update Order",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"items\": [\n        {\n            \"product_id\": 1,\n            \"quantity\": 3\n        },\n        {\n            \"product_id\": 3,\n            \"quantity\": 1\n        }\n    ]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/orders/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "orders",
+                "1"
+              ]
+            },
+            "description": "Update an order. Only orders with status 'pending' can be updated."
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"items\": [\n        {\n            \"product_id\": 1,\n            \"quantity\": 3\n        },\n        {\n            \"product_id\": 3,\n            \"quantity\": 1\n        }\n    ]\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/orders/1",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "orders",
+                    "1"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "Text",
+              "header": [],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Order updated successfully\",\n    \"data\": {\n        \"id\": 1,\n        \"user_id\": 1,\n        \"status\": \"pending\",\n        \"total_amount\": 520.0,\n        \"items\": [],\n        \"created_at\": \"2026-01-29T19:00:00.000000Z\",\n        \"updated_at\": \"2026-01-29T19:30:00.000000Z\"\n    }\n}"
+            },
+            {
+              "name": "Error - Not Found",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"items\": [\n        {\n            \"product_id\": 1,\n            \"quantity\": 1\n        }\n    ]\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/orders/999",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "orders",
+                    "999"
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "Text",
+              "header": [],
+              "cookie": [],
+              "body": "{\n    \"success\": false,\n    \"message\": \"Resource not found.\",\n    \"error_code\": \"NOT_FOUND\"\n}"
+            },
+            {
+              "name": "Error - Not Acceptable (order not pending)",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"items\": [\n        {\n            \"product_id\": 1,\n            \"quantity\": 1\n        }\n    ]\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/orders/1",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "orders",
+                    "1"
+                  ]
+                }
+              },
+              "status": "Not Acceptable",
+              "code": 406,
+              "_postman_previewlanguage": "Text",
+              "header": [],
+              "cookie": [],
+              "body": "{\n    \"success\": false,\n    \"message\": \"Action not acceptable.\",\n    \"error_code\": \"NOT_ACCEPTABLE\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Confirm Order",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/orders/confirm/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "orders",
+                "confirm",
+                "1"
+              ]
+            },
+            "description": "Confirm an order. Only orders with status 'pending' can be confirmed."
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/api/orders/confirm/1",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "orders",
+                    "confirm",
+                    "1"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "Text",
+              "header": [],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Order confirmed successfully\",\n    \"data\": {\n        \"id\": 1,\n        \"user_id\": 1,\n        \"status\": \"confirmed\",\n        \"total_amount\": 450.75,\n        \"items\": [],\n        \"created_at\": \"2026-01-29T19:00:00.000000Z\",\n        \"updated_at\": \"2026-01-29T19:35:00.000000Z\"\n    }\n}"
+            },
+            {
+              "name": "Error - Not Found",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/api/orders/confirm/999",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "orders",
+                    "confirm",
+                    "999"
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "Text",
+              "header": [],
+              "cookie": [],
+              "body": "{\n    \"success\": false,\n    \"message\": \"Resource not found.\",\n    \"error_code\": \"NOT_FOUND\"\n}"
+            },
+            {
+              "name": "Error - Not Acceptable",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/api/orders/confirm/1",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "orders",
+                    "confirm",
+                    "1"
+                  ]
+                }
+              },
+              "status": "Not Acceptable",
+              "code": 406,
+              "_postman_previewlanguage": "Text",
+              "header": [],
+              "cookie": [],
+              "body": "{\n    \"success\": false,\n    \"message\": \"Action not acceptable.\",\n    \"error_code\": \"NOT_ACCEPTABLE\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Cancel Order",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/orders/cancel/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "orders",
+                "cancel",
+                "1"
+              ]
+            },
+            "description": "Cancel an order."
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/api/orders/cancel/1",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "orders",
+                    "cancel",
+                    "1"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "Text",
+              "header": [],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Order cancelled successfully\",\n    \"data\": {\n        \"id\": 1,\n        \"user_id\": 1,\n        \"status\": \"cancelled\",\n        \"total_amount\": 450.75,\n        \"items\": [],\n        \"created_at\": \"2026-01-29T19:00:00.000000Z\",\n        \"updated_at\": \"2026-01-29T19:40:00.000000Z\"\n    }\n}"
+            },
+            {
+              "name": "Error - Not Found",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/api/orders/cancel/999",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "orders",
+                    "cancel",
+                    "999"
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "Text",
+              "header": [],
+              "cookie": [],
+              "body": "{\n    \"success\": false,\n    \"message\": \"Resource not found.\",\n    \"error_code\": \"NOT_FOUND\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Delete Order",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/orders/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "orders",
+                "1"
+              ]
+            },
+            "description": "Delete an order and its items."
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/api/orders/1",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "orders",
+                    "1"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "Text",
+              "header": [],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Order deleted successfully\",\n    \"data\": null\n}"
+            },
+            {
+              "name": "Error - Not Found",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/api/orders/999",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "orders",
+                    "999"
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "Text",
+              "header": [],
+              "cookie": [],
+              "body": "{\n    \"success\": false,\n    \"message\": \"Resource not found.\",\n    \"error_code\": \"NOT_FOUND\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Payments",
+      "item": [
+        {
+          "name": "List Payments",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/payments?per_page=15",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "payments"
+              ],
+              "query": [
+                {
+                  "key": "per_page",
+                  "value": "15",
+                  "description": "Items per page (default: 15)"
+                }
+              ]
+            },
+            "description": "Get paginated list of payments for the authenticated user (payments for orders owned by the user)."
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/api/payments?per_page=15",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "payments"
+                  ],
+                  "query": [
+                    {
+                      "key": "per_page",
+                      "value": "15"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "Text",
+              "header": [],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Payments retrieved successfully\",\n    \"data\": {\n        \"data\": [\n            {\n                \"id\": 1,\n                \"order_id\": 1,\n                \"status\": 2,\n                \"payment_method\": 1,\n                \"amount\": 450.75,\n                \"order\": {\n                    \"id\": 1,\n                    \"user_id\": 1,\n                    \"status\": \"confirmed\",\n                    \"total_amount\": 450.75,\n                    \"items\": []\n                },\n                \"created_at\": \"2026-01-30T15:00:00.000000Z\",\n                \"updated_at\": \"2026-01-30T15:00:00.000000Z\"\n            }\n        ],\n        \"meta\": {\n            \"current_page\": 1,\n            \"last_page\": 1,\n            \"per_page\": 15,\n            \"total\": 1\n        },\n        \"links\": {}\n    }\n}"
+            },
+            {
+              "name": "Error - Unauthenticated",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/api/payments",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "payments"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "Text",
+              "header": [],
+              "cookie": [],
+              "body": "{\n    \"success\": false,\n    \"message\": \"Unauthenticated.\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Pay (Create Payment)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"order_id\": 1,\n    \"payment_method\": 1\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/payments",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "payments"
+              ]
+            },
+            "description": "Initiate payment for an order. order_id: existing confirmed order. payment_method: 1 = Credit Card, 2 = PayPal. Order must be confirmed and owned by the authenticated user."
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"order_id\": 1,\n    \"payment_method\": 1\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/payments",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "payments"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "Text",
+              "header": [],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Payment initiated successfully\",\n    \"data\": {\n        \"id\": 1,\n        \"order_id\": 1,\n        \"status\": 2,\n        \"payment_method\": 1,\n        \"amount\": 450.75,\n        \"order\": {\n            \"id\": 1,\n            \"user_id\": 1,\n            \"status\": \"confirmed\",\n            \"total_amount\": 450.75\n        },\n        \"created_at\": \"2026-01-30T15:00:00.000000Z\",\n        \"updated_at\": \"2026-01-30T15:00:00.000000Z\"\n    }\n}"
+            },
+            {
+              "name": "Error - Not Found (order)",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"order_id\": 999,\n    \"payment_method\": 1\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/payments",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "payments"
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "Text",
+              "header": [],
+              "cookie": [],
+              "body": "{\n    \"success\": false,\n    \"message\": \"Resource not found.\"\n}"
+            },
+            {
+              "name": "Error - Order Not Confirmed",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"order_id\": 1,\n    \"payment_method\": 1\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/payments",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "payments"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "Text",
+              "header": [],
+              "cookie": [],
+              "body": "{\n    \"success\": false,\n    \"message\": \"Order is not confirmed.\"\n}"
+            },
+            {
+              "name": "Error - Unauthorized (not order owner)",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"order_id\": 2,\n    \"payment_method\": 1\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/payments",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "payments"
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "Text",
+              "header": [],
+              "cookie": [],
+              "body": "{\n    \"success\": false,\n    \"message\": \"Unauthorized.\"\n}"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8000"
+    },
+    {
+      "key": "token",
+      "value": ""
+    }
+  ]
+}
