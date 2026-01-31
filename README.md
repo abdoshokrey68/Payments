@@ -1,59 +1,163 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Payments — Laravel Modular API
+
+A Laravel 12 API built with a **modular architecture** using [nwidart/laravel-modules](https://github.com/nwidart/laravel-modules). It provides authentication, product catalog, order management, and an extensible payment gateway system.
 
 <p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+<a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="300" alt="Laravel Logo"></a>
 </p>
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Table of Contents
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- [Payments — Laravel Modular API](#payments--laravel-modular-api)
+  - [Table of Contents](#table-of-contents)
+  - [Requirements](#requirements)
+  - [Installation](#installation)
+    - [1. Clone and install dependencies](#1-clone-and-install-dependencies)
+    - [2. Environment configuration](#2-environment-configuration)
+    - [3. Database setup](#3-database-setup)
+    - [4. Module discovery](#4-module-discovery)
+    - [5. Serve the application](#5-serve-the-application)
+  - [Database Diagram](#database-diagram)
+  - [API Testing (Postman)](#api-testing-postman)
+  - [Payment Gateway Extensibility](#payment-gateway-extensibility)
+    - [Design](#design)
+  - [Running Tests](#running-tests)
+  - [License](#license)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## Requirements
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+- **PHP** 8.2+
+- **Composer** 2.x
+- **Laravel** 12.x
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+---
 
-## Laravel Sponsors
+## Installation
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### 1. Clone and install dependencies
 
-### Premium Partners
+```bash
+git clone git@github.com:abdoshokrey68/Payments.git
+cd Payments
+composer install
+```
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+### 2. Environment configuration
 
-## Contributing
+Copy the example environment file and generate the application key:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```bash
+cp .env.example .env
+```
 
-## Code of Conduct
+Edit `.env` and set your database credentials:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=payments
+DB_USERNAME=root
+DB_PASSWORD=
+```
 
-## Security Vulnerabilities
+### 3. Database setup
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Run migrations to create all tables (application + modules):
+
+And seed the products with sample data:
+
+```bash
+php artisan migrate --seed
+```
+
+### 4. Module discovery
+
+Modules are auto-discovered via `config/modules.php`. Ensure `Modules` is listed in the `modules` path. No extra command is required for Laravel Modules v12.
+
+### 5. Serve the application
+
+```bash
+php artisan serve
+```
+
+The API will be available at `http://localhost:8000`. Use the base URL for all API requests (e.g. `http://localhost:8000/api/...`).
+
+---
+
+## Database Diagram
+
+The full database schema (tables and relationships) is documented in DbDiagram:
+
+**🔗 [View Database Diagram](https://dbdiagram.io/d/6977e595bd82f5fce2acc26a)**
+
+Use this diagram to understand entities (users, products, orders, order_items, payments) and their relationships.
+
+---
+
+## API Testing (Postman)
+
+A Postman collection is provided in the **project root** for testing all API endpoints.
+
+**File:** `Payment_API.postman_collection.json`
+
+**How to use:**
+
+1. Open [Postman](https://www.postman.com/).
+2. Click **Import** and choose **Upload Files** or drag-and-drop.
+3. Select `Payment_API.postman_collection.json` from the project root directory.
+4. After import, set the collection/base URL variable to your app URL (e.g. `http://localhost:8000`) if needed.
+5. Use the collection to call Auth, Products, Orders, and Payment endpoints.
+
+The collection includes the main API routes; you can extend it with more examples or environments as needed.
+
+---
+
+## Payment Gateway Extensibility
+
+The payment system is designed so that new gateways can be added without changing core payment logic.
+
+### Design
+
+1. **Interface**  
+   All gateways implement `Modules\Payment\Interfaces\PaymentGatewayInterface`:
+
+   ```php
+   interface PaymentGatewayInterface
+   {
+       public function process($order_id, $amount): bool;
+   }
+   ```
+
+2. **Factory**  
+   `PaymentGatewayFactory` resolves the correct gateway by **payment method** (e.g. enum value). The service receives the method from the request and asks the factory for the right gateway, then calls `process()`.
+
+3. **Registration**  
+   In `PaymentServiceProvider`, each gateway is registered as a singleton under a key such as `payment.gateway.{method}`. The factory uses that key to resolve the gateway from the container.
+
+4. **Adding a new gateway**  
+   - Create a new class (e.g. `StripeGateway`) that implements `PaymentGatewayInterface`.
+   - Register it in `PaymentServiceProvider::registerPaymentGateways()` with a new key (e.g. `payment.gateway.{StripeEnumValue}`).
+   - Add the corresponding value to `PaymentMethodsEnum` (and any validation/routing that uses it).
+
+No changes are required inside `PaymentService::pay()` or the controller beyond supporting the new method value; the factory and interface handle the rest.
+
+---
+
+## Running Tests
+
+```bash
+composer test
+# or
+php artisan test
+```
+
+---
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+The Laravel framework is open-sourced under the [MIT license](https://opensource.org/licenses/MIT).
